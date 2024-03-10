@@ -20,7 +20,7 @@ namespace BusinessLayer.Concrete
 
         public List<Testimonial> GetList()
         {
-            throw new NotImplementedException();
+            return _testimonialDal.GetList();
         }
 
         public void TAdd(Testimonial t)

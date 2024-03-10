@@ -20,7 +20,7 @@ namespace BusinessLayer.Concrete
 
         public List<SubAbout> GetList()
         {
-            throw new NotImplementedException();
+            return _subAboutDal.GetList();
         }
 
         public void TAdd(SubAbout t)

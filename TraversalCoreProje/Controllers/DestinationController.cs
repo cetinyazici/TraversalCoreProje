@@ -15,9 +15,19 @@ namespace TraversalCoreProje.Controllers
             return View(values);
         }
 
-        public IActionResult DestinationDetails()
+        public IActionResult DestinationDetails(int id)
+        {
+            var values = destinationManager.TGetById(id);
+            return View(values);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DestinationDetails(Destination destination)
         {
             return View();
         }
+
+
     }
 }

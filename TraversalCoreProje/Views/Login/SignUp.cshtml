@@ -20,31 +20,31 @@
     <div class="wrapper">
         <div class="inner">
             <img src="~/colorlib-regform-26/images/image-1.png" alt="" class="image-1">
-            <form action="">
+            <form method="post">
                 <h3>Yeni Hesap Oluşturun</h3>
                 <div class="form-holder">
                     <span class="lnr lnr-user"></span>
-                    <input type="text" class="form-control" placeholder="Adınız">
+                    <input name="Name" type="text" class="form-control" placeholder="Adınız">
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-user"></span>
-                    <input type="text" class="form-control" placeholder="Soyadınız">
+                    <input name="Surname" type="text" class="form-control" placeholder="Soyadınız">
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input name="UserName" type="text" class="form-control" placeholder="Kullanıcı adınız">
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-envelope"></span>
-                    <input type="text" class="form-control" placeholder="Mail Adresiniz">
-                </div>
-                <div class="form-holder">
-                    <span class="lnr lnr-phone-handset"></span>
-                    <input type="text" class="form-control" placeholder="Telefon Numaranız">
+                    <input name="Mail" type="email" class="form-control" placeholder="Mail Adresiniz">
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
-                    <input type="password" class="form-control" placeholder="Şifreniz">
+                    <input name="Password" type="password" class="form-control" placeholder="Şifreniz">
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
-                    <input type="password" class="form-control" placeholder="Şifre Tekrar">
+                    <input name="ConfirmPassword" type="password" class="form-control" placeholder="Şifre Tekrar">
                 </div>
                 <button>
                     <span>Kayıt ol</span>

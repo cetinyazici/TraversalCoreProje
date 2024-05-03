@@ -49,8 +49,7 @@
                         <h4>Bize Katılın</h4>
                         <p>Hemen ücretsiz hesap oluşturun :)</p>
                     </div>
-                    <form method="post" class="signin-form">
-                        <div style="color:red" asp-validation-summary="All"></div>
+                    <form method="post" class="signin-form">               
                         <div class="form-input">
                             <label>Adınız</label>
                             <input type="text" asp-for="Name" />
@@ -69,7 +68,7 @@
                         </div>
                         <div class="form-input">
                             <label>Şifreniz</label>
-                            <input type="password" asp-for="Password" />
+                            <input class="load" type="password" asp-for="Password" />
                         </div>
                         <div class="form-input">
                             <label>Şİfre Tekrar</label>
@@ -80,6 +79,7 @@
                             <input type="checkbox">
                             <span class="checkmark"></span>
                         </label>
+                        <div style="color:red" asp-validation-summary="All"></div>
                         <button class="btn">Hesap Oluştur</button>
                     </form>
                     <div class="copy-right text-center">

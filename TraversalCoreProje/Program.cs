@@ -4,13 +4,23 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using TraversalCoreProje.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Veritabaný baðlantýsý ve kimlik doðrulama servisleri
 builder.Services.AddDbContext<Context>();
-builder.Services.AddIdentity<AppUser, AppRole>()
-    .AddEntityFrameworkStores<Context>();
+// Identity sisteminde CustomIdentityValidator kullanýlýyor.
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+{
+    // Burada gerekirse diðer kimlik doðrulama seçenekleri de yapýlandýrýlabilir.
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+})
+.AddEntityFrameworkStores<Context>()
+.AddErrorDescriber<CustomIdentityValidator>();
 
 builder.Services.AddMvc(config =>
 {

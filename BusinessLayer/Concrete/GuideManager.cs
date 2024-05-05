@@ -20,7 +20,7 @@ namespace BusinessLayer.Concrete
 
         public List<Guide> GetList()
         {
-            throw new NotImplementedException();
+            return _guideDal.GetList();
         }
 
         public void TAdd(Guide t)

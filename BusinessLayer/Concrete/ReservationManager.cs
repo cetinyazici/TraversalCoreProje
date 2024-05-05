@@ -23,6 +23,11 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
+        public List<Reservation> GetListApprovalReservation(int id)
+        {
+            return _reservationDal.GetListbyFilter(x => x.AppUserId == id);
+        }
+
         public void TAdd(Reservation t)
         {
             _reservationDal.Insert(t);

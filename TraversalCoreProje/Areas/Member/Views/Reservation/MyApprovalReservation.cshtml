@@ -1,0 +1,27 @@
+﻿@model List<Reservation>
+@{
+    ViewData["Title"] = "MyApprovalReservation";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1 class="text-center">Onay Bekleyen Rezervasyonlarım</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Lokasyon</th>
+        <th>Kişi Sayısı</th>
+        <th>Rezervason Tarihi</th>
+        <th>Durum</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ReservationId</td>
+            <td>@item.Destination</td>
+            <td>@item.PersonCount</td>
+            <td>@item.ReservationDate.ToShortDateString()</td>
+            <td>@item.Status</td>
+        </tr>
+    }
+</table>

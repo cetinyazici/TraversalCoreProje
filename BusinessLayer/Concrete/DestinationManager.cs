@@ -18,15 +18,19 @@ namespace BusinessLayer.Concrete
             _destinationDal = destinationDal;
         }
 
+        public List<Destination> GetList()
+        {
+            return _destinationDal.GetList();
+        }
 
         public void TAdd(Destination t)
         {
-            throw new NotImplementedException();
+            _destinationDal.Insert(t);
         }
 
         public void TDelete(Destination t)
         {
-            throw new NotImplementedException();
+            _destinationDal.Delete(t);
         }
 
         public Destination TGetById(int id)
@@ -36,12 +40,7 @@ namespace BusinessLayer.Concrete
 
         public void TUpdate(Destination t)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Destination> GetList()
-        {
-            return _destinationDal.GetList();
+            _destinationDal.Update(t);
         }
     }
 }

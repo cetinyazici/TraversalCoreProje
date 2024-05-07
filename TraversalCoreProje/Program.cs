@@ -1,4 +1,8 @@
+using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
+using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Veritabaný baðlantýsý ve kimlik doðrulama servisleri
 builder.Services.AddDbContext<Context>();
+
+builder.Services.AddScoped<ICommentService, CommentManager>();
+builder.Services.AddScoped<ICommentDal, EfCommentDal>();
+
+
+
 // Identity sisteminde CustomIdentityValidator kullanýlýyor.
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {

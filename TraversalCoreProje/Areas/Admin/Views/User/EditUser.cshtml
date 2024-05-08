@@ -1,0 +1,29 @@
+﻿@model AppUser
+@{
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1 class="text-center">Kullanıcı Güncelleme</h1>
+<form method="post">
+    <div class="form-group">
+        @Html.Label("Adı")
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Soyadı")
+        <input type="text" asp-for="Surname" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Kullanıcı Adı")
+        <input type="text" asp-for="UserName" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Mail Adresi")
+        <input type="text" asp-for="Email" class="form-control" />
+    </div>
+    <br />
+    <button class="btn btn-outline-primary">Güncelle</button>
+</form>

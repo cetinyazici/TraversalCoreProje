@@ -11,11 +11,15 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
     {
         private readonly IAppUserService _userService;
         private readonly IReservationService _reservationService;
+        private readonly ICommentService _commentService;
 
-        public UserController(IAppUserService userService, IReservationService reservationService)
+        public UserController(IAppUserService userService,
+                              IReservationService reservationService,
+                              ICommentService commentService)
         {
             _userService = userService;
             _reservationService = reservationService;
+            _commentService = commentService;
         }
 
         public IActionResult Index()
@@ -49,7 +53,9 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 
         public IActionResult CommentUser(int id)
         {
-            return View();
+            //usera göre değil destinationa göre geliyor mantık hatası var düzenlenecek.
+            var values = _commentService.TGetDestinationById(id);
+            return View(values);
         }
 
         public IActionResult ReservationUser(int id)

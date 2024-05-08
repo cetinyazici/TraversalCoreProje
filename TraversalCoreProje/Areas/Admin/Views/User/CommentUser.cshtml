@@ -1,0 +1,27 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "CommentUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+<h1 class="text-center">Kullanıcının Yorumları</h1>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>#</th>
+        <th>Yorum Yapan</th>
+        <th>Yorum İçeriği</th>
+        <th>Tarih</th>
+        <th>Detaylar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        { count += 1; }
+        <tr>
+            <td>@count</td>
+            <td>@item.CommentUser</td>
+            <td>@item.CommentContent</td>
+            <td>@(((DateTime)item.CommentDate).ToString("dd-MMM-yyyy"))</td>
+            <td><a href="#" class="btn btn-outline-primary">Detaylar</a></td>
+        </tr>
+    }
+</table>

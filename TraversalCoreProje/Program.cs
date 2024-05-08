@@ -7,6 +7,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using TraversalCoreProje.Models;
@@ -55,6 +56,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication(); // Kimlik doðrulamayý etkinleþtir
@@ -62,24 +65,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
-});
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.UseEndpoints(endpoints =>
-{
     endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 });
 
 app.Run();

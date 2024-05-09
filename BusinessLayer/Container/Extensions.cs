@@ -24,6 +24,7 @@ namespace BusinessLayer.Container
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<IReservationService, ReservationManager>();
             services.AddScoped<ICommentService, CommentManager>();
+            services.AddScoped<IGuideService, GuideManager>();
         }
 
         public static void ConfigureServiceRegistration(this IServiceCollection services)
@@ -33,6 +34,7 @@ namespace BusinessLayer.Container
             services.AddScoped<IAppUserDal, EfAppUserDal>();
             services.AddScoped<IReservationDal, EfReservationDal>();
             services.AddScoped<ICommentDal, EfCommentDal>();
+            services.AddScoped<IGuideDal, EfGuideDal>();
         }
 
     }

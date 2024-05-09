@@ -10,9 +10,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Serilog.Events;
+using Serilog;
 using TraversalCoreProje.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Serilog configuration
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.File($"{builder.Environment.ContentRootPath}\\Logs\\log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();  // Use Serilog for log
 
 // Veritabaný baðlantýsý ve kimlik doðrulama servisleri
 builder.Services.AddDbContext<Context>();
@@ -20,6 +31,12 @@ builder.Services.AddDbContext<Context>();
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();
 
+builder.Services.AddLogging(x =>
+{
+    x.ClearProviders();
+    x.SetMinimumLevel(LogLevel.Debug);
+    x.AddDebug();
+});
 
 
 // Identity sisteminde CustomIdentityValidator kullanýlýyor.

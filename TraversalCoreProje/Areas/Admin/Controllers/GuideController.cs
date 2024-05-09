@@ -1,5 +1,7 @@
 ﻿using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TraversalCoreProje.Areas.Admin.Controllers
@@ -30,8 +32,22 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddGuide(Guide guide)
         {
-            _guideService.TAdd(guide);
-            return RedirectToAction("Index");
+            GuideValidator validationRules = new();
+            ValidationResult validationResult = validationRules.Validate(guide);
+            if (validationResult.IsValid)
+            {
+                _guideService.TAdd(guide);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View();
+            }
+
         }
 
         [HttpGet]
@@ -42,7 +58,7 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]  
+        [ValidateAntiForgeryToken]
         public IActionResult EditGuide(Guide guide)
         {
             _guideService.TUpdate(guide);

@@ -20,6 +20,7 @@
         <th>Açıklama</th>
         <th>Durum</th>
         <th>Düzenle</th>
+        <th>Sil</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -42,7 +43,8 @@
                 }
             }
 
-            <td><a href="/Admin/Guide/EditGuide/" class="btn btn-outline-success">Düzenle</a></td>
+            <td><a href="/Admin/Guide/EditGuide/@item.GuideId" class="btn btn-outline-success">Düzenle</a></td>
+            <td><a href="/Admin/Guide/DeleteGuide/@item.GuideId" class="btn btn-outline-danger">Sil</a></td>
         </tr>
     }
 </table>

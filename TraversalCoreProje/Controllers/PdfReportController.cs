@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using BusinessLayer.Abstract;
+using DocumentFormat.OpenXml.Wordprocessing;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,13 @@ namespace TraversalCoreProje.Controllers
 {
     public class PdfReportController : Controller
     {
+        private readonly IPdfReportService _pdfReportService;
+
+        public PdfReportController(IPdfReportService pdfReportService)
+        {
+            _pdfReportService = pdfReportService;
+        }
+
         public IActionResult Index()
         {
             return View();

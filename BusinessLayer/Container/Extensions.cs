@@ -25,6 +25,8 @@ namespace BusinessLayer.Container
             services.AddScoped<IReservationService, ReservationManager>();
             services.AddScoped<ICommentService, CommentManager>();
             services.AddScoped<IGuideService, GuideManager>();
+            services.AddScoped<IExcelService, ExcelManager>();
+            services.AddScoped<IPdfReportService, PdfReportManager>();
         }
 
         public static void ConfigureServiceRegistration(this IServiceCollection services)

@@ -9,6 +9,13 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
     [Area("Admin")]
     public class CityController : Controller
     {
+        private readonly IDestinationService _destinationService;
+
+        public CityController(IDestinationService destinationService)
+        {
+            _destinationService = destinationService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -16,31 +23,26 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 
         public IActionResult CityList()
         {
-            var jsonCity = JsonConvert.SerializeObject(cityModels);
+            var jsonCity = JsonConvert.SerializeObject(_destinationService.GetList());
             return Json(jsonCity);
         }
 
-        public static List<CityModel> cityModels = new List<CityModel>
+        [HttpPost]
+        public IActionResult AddCityDestination(Destination destination)
         {
-            new CityModel()
-            {
-                CityId = 1,
-                CityName = "Test",
-                CityCountry="Test",
-            },
-            new CityModel()
-            {
-                CityId= 2,
-                CityName= "Test",
-                CityCountry="Test",
-            },
-            new CityModel()
-            {
-                CityId =3,
-                CityName= "Test",
-                CityCountry="Test",
-            }
-        };
+            destination.Description = "adadad";
+            destination.Status = "true";
+            _destinationService.TAdd(destination);
+            var values = JsonConvert.SerializeObject(destination);
+            return Json(values);
+        }
+
+        public IActionResult GetById(int id)
+        {
+            var values = _destinationService.TGetById(id);
+            var jsonValues = JsonConvert.SerializeObject(values);
+            return Json(jsonValues);
+        }
 
     }
 }

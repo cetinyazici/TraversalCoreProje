@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Serilog.Events;
 using Serilog;
 using TraversalCoreProje.Models;
+using FluentValidation;
+using DToLayer.Dtos.AnnouncementDtos;
+using BusinessLayer.ValidationRules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,9 @@ builder.Host.UseSerilog();  // Use Serilog for log
 
 // Veritabaný baðlantýsý ve kimlik doðrulama servisleri
 builder.Services.AddDbContext<Context>();
+
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
 
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();
@@ -61,7 +67,7 @@ builder.Services.AddMvc(config =>
 builder.Services.AddMvc();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddFluentValidation();
 
 var app = builder.Build();
 

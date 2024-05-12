@@ -27,6 +27,7 @@ namespace BusinessLayer.Container
             services.AddScoped<IGuideService, GuideManager>();
             services.AddScoped<IExcelService, ExcelManager>();
             services.AddScoped<IPdfReportService, PdfReportManager>();
+            services.AddScoped<IContactUsService, ContactUsManager>();
         }
 
         public static void ConfigureServiceRegistration(this IServiceCollection services)
@@ -37,6 +38,7 @@ namespace BusinessLayer.Container
             services.AddScoped<IReservationDal, EfReservationDal>();
             services.AddScoped<ICommentDal, EfCommentDal>();
             services.AddScoped<IGuideDal, EfGuideDal>();
+            services.AddScoped<IContactUsDal, EfContactUsDal>();
         }
 
     }

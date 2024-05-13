@@ -1,9 +1,12 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DToLayer.Dtos.AnnouncementDtos;
 using EntityLayer.Concrete;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -42,6 +45,11 @@ namespace BusinessLayer.Container
             services.AddScoped<IGuideDal, EfGuideDal>();
             services.AddScoped<IContactUsDal, EfContactUsDal>();
             services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
+        }
+
+        public static void CustomerValidator(this IServiceCollection services)
+        {
+            services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
         }
 
     }

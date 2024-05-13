@@ -32,7 +32,7 @@ builder.Host.UseSerilog();  // Use Serilog for log
 builder.Services.AddDbContext<Context>();
 
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
+builder.Services.CustomerValidator();
 
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();

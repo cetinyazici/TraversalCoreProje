@@ -7,6 +7,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS eklemek için hizmetlere CORS ekleniyor
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("TraversalApiCORS",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -15,9 +27,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("TraversalApiCORS");
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using TraversalApiProject.DAL.Context;
@@ -6,6 +7,7 @@ using TraversalApiProject.DAL.Entities;
 
 namespace TraversalApiProject.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class VisitorController : ControllerBase
@@ -83,7 +85,7 @@ namespace TraversalApiProject.Controllers
                     values.Name = visitor.Name;
                     values.Surname = visitor.Surname;
                     values.Mail = visitor.Mail;
-                    values.VisitorID = visitor.VisitorID;
+                    
                     context.Update(values);
                     context.SaveChanges();
                     return Ok();

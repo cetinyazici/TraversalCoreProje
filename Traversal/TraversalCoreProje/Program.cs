@@ -31,6 +31,8 @@ builder.Host.UseSerilog();  // Use Serilog for log
 // Veritabaný baðlantýsý ve kimlik doðrulama servisleri
 builder.Services.AddDbContext<Context>();
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.CustomerValidator();
 

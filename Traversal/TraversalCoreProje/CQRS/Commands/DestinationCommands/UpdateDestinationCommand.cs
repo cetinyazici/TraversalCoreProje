@@ -1,6 +1,6 @@
-﻿namespace TraversalCoreProje.CQRS.Results.DestinationResults
+﻿namespace TraversalCoreProje.CQRS.Commands.DestinationCommands
 {
-    public class GetAllDestinationByIdQueryResult
+    public class UpdateDestinationCommand
     {
         public int DestinationId { get; set; }
         public string City { get; set; }

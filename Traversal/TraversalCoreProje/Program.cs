@@ -17,6 +17,7 @@ using FluentValidation;
 using DToLayer.Dtos.AnnouncementDtos;
 using BusinessLayer.ValidationRules;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
+using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,10 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.CustomerValidator();
 
 builder.Services.AddScoped<GetAllDestinationQueryHandler>();
+builder.Services.AddScoped<GetDestinationByIdQueryHandler>();
+builder.Services.AddScoped<CreateDestinationCommandHandler>();
+builder.Services.AddScoped<RemoveDestinationCommandHandler>();
+builder.Services.AddScoped<UpdateDestinationCommandHandler>();
 
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();

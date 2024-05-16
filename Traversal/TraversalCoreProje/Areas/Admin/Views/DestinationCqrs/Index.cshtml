@@ -20,11 +20,11 @@
             <td>@item.id</td>
             <td>@item.city</td>
             <td>@item.daynight</td>
-            <td>@item.price</td>
+            <td>@item.price ₺</td>
             <td>@item.capacity</td>
-            <td><a href="/Admin/DestinationCqrs/DeleteDestinationCqrs/@item.id" class="btn btn-outline-danger">Sil</a></td>
-            <td><a href="/Admin/DestinationCqrs/UpdateDestinationCqrs/@item.id" class="btn btn-outline-success">Güncelle</a></td>
+            <td><a href="/Admin/DestinationCqrs/DeleteDestination/@item.id" class="btn btn-outline-danger">Sil</a></td>
+            <td><a href="/Admin/DestinationCqrs/GetDestination/@item.id" class="btn btn-outline-success">Güncelle</a></td>
         </tr>
     }
 </table>
-<a href="/Admin/DestinationCqrs/AddDestinationCqrs" class="btn btn-outline-primary">Yeni CQRS Tur Rotası</a>
+<a href="/Admin/DestinationCqrs/AddDestination" class="btn btn-outline-primary">Yeni CQRS Tur Rotası</a>

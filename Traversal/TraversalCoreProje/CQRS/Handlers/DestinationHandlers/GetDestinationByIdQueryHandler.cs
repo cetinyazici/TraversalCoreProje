@@ -9,7 +9,6 @@ namespace TraversalCoreProje.CQRS.Handlers.DestinationHandlers
     public class GetDestinationByIdQueryHandler
     {
         private readonly Context _context;
-
         public GetDestinationByIdQueryHandler(Context context)
         {
             _context = context;
@@ -20,10 +19,10 @@ namespace TraversalCoreProje.CQRS.Handlers.DestinationHandlers
             var values = _context.Destinations.Find(query.id);
             return new GetAllDestinationByIdQueryResult
             {
-                DestinationID = values.DestinationId,
+                DestinationId = values.DestinationId,
                 City = values.City,
-                Daynight = values.DayNighy,
-                Price = values.Price
+                DayNighy = values.DayNighy,
+                Price = values.Price,
             };
         }
     }

@@ -16,6 +16,7 @@ using TraversalCoreProje.Models;
 using FluentValidation;
 using DToLayer.Dtos.AnnouncementDtos;
 using BusinessLayer.ValidationRules;
+using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,8 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.CustomerValidator();
+
+builder.Services.AddScoped<GetAllDestinationQueryHandler>();
 
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();

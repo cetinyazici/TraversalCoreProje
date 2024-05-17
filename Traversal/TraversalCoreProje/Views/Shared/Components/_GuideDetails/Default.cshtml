@@ -1,0 +1,30 @@
+﻿@model Guide
+<div class="author-card mt-5">
+    <div class="row align-items-center">
+        <div class="col-sm-3 col-6">
+            <div>
+                <img src="@Model.Image" style="width:150px; height:150px" alt="" class="rounded-circle-fluid">
+            </div>
+        </div>
+        <div class="col-sm-9 mt-sm-0 mt-3">
+            <h3 class="mb-3 title">@Model.Name</h3>
+            <p>
+                @Model.Description
+            </p>
+            <ul class="author-icons mt-4">
+                <li>
+                    <a class="linkedin" href="https://www.linkedin.com/in/cetinyazici/" target="_blank">
+                        <span class="fa fa-linkedin"
+                              aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="github" href="https://github.com/cetinyazici" target="_blank">
+                        <span class="fa fa-github"
+                              aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -38,6 +38,11 @@ namespace BusinessLayer.Concrete
             return _destinationDal.GetByID(id);
         }
 
+        public Destination TGetDestinationWithGudie(int id)
+        {
+            return _destinationDal.GetDestinationWithGudie(id);
+        }
+
         public void TUpdate(Destination t)
         {
             _destinationDal.Update(t);

@@ -2,6 +2,7 @@
 using DToLayer.Dtos.AnnouncementDtos;
 using DToLayer.Dtos.AppUserDtos;
 using DToLayer.Dtos.CityDtos;
+using DToLayer.Dtos.ContactDtos;
 using EntityLayer.Concrete;
 
 namespace TraversalCoreProje.Mapping.AutoMapperProfile
@@ -24,6 +25,8 @@ namespace TraversalCoreProje.Mapping.AutoMapperProfile
 
             CreateMap<AnnouncementUpdateDto, Announcement>();
             CreateMap<Announcement, AnnouncementUpdateDto>();
+
+            CreateMap<SendMessageDto, ContactUs>().ReverseMap();
 
         }
     }

@@ -16,7 +16,7 @@ namespace SignalRApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Createvisitor()
+        public IActionResult CreateVisitor()
         {
             Random random = new Random();
             Enumerable.Range(1, 10).ToList().ForEach(x =>
@@ -27,13 +27,13 @@ namespace SignalRApi.Controllers
                     {
                         City = item,
                         CityVisitCount = random.Next(100, 2000),
-                        VisitDate = DateTime.UtcNow.AddDays(x),
+                        VisitDate = DateTime.UtcNow.AddDays(x)
                     };
                     _visitorService.SaveVisitor(newVisitor).Wait();
                     System.Threading.Thread.Sleep(1000);
                 }
             });
-            return Ok("Ziyaretçiler başarılı bir şekilde eklendi.");
+            return Ok("Ziyaretçiler başarılı bir şekilde eklendi");
         }
     }
 }

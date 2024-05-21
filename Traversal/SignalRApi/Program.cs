@@ -2,6 +2,7 @@ using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SignalRApi.DAL;
+using SignalRApi.Hubs;
 using SignalRApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,16 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<VisitorService>();
 
 builder.Services.AddSignalR();
-//builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
-//                builder =>
-//                {
-//                    builder.AllowAnyHeader()
-//                           .AllowAnyMethod()
-//                           .SetIsOriginAllowed((host) => true)
-//                           .AllowCredentials();
-//                }));
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", build =>
+{
+    build.AllowAnyHeader()
+         .AllowAnyMethod()
+         .SetIsOriginAllowed((host) => true)
+         .AllowCredentials();
+}));
 
-// Add services to the container.
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<Context>((serviceProvider, options) =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -38,9 +37,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
+
 app.MapControllers();
+app.MapHub<VisitorHub>("/VisitorHub");
 
 app.Run();

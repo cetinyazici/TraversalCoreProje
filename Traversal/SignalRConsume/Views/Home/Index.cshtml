@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // jQuery'nin yüklü olduğunu kontrol et
+            if (typeof $ === 'undefined') {
+                console.error('jQuery yüklenmedi');
+                return;
+            }
+
+            // Bağlantıyı oluştur
+            var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5195/VisitorHub").build();
+
+            // Bağlantı durumu güncelleme fonksiyonu
+            function updateConnectionStatus() {
+                var state = connection.state;  // connectionState yerine state kullanıldı
+                console.log("Bağlantı durumu: " + state);
+                $("#connectionStatus").text(state);
+            }
+
+            // Başlangıç bağlantı durumunu göster
+            updateConnectionStatus();
+
+            // Bağlantıyı başlat
+            connection.start().then(function () {
+                console.log("Bağlantı başarıyla kuruldu.");
+                updateConnectionStatus();
+            }).catch(function (err) {
+                console.error(err.toString());
+            });
+
+            // Bağlantı durum değişikliklerini yönet
+            connection.onclose(function () {
+                console.log("Bağlantı kapandı.");
+                updateConnectionStatus();
+            });
+
+            connection.onreconnecting(function () {
+                console.log("Yeniden bağlanılıyor...");
+                updateConnectionStatus();
+            });
+
+            connection.onreconnected(function () {
+                console.log("Yeniden bağlandı.");
+                updateConnectionStatus();
+            });
+        });
+    </script>
+}
+
+<div class="container">
+    <br />
+    <div class="alert alert-warning">
+        Bağlantınızın Durumu: <b id="connectionStatus"></b>
+    </div>
+</div>

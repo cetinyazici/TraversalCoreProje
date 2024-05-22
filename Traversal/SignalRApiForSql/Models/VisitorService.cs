@@ -24,7 +24,7 @@ namespace SignalRApiForSql.Models
         {
             await _context.Visitors.AddAsync(visitor);
             await _context.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("CallVisitorList", "aa");
+            await _hubContext.Clients.All.SendAsync("ReceiveVisitorList", GetVisitorChardList());
         }
 
         public List<VisitorChard> GetVisitorChardList()
@@ -32,7 +32,22 @@ namespace SignalRApiForSql.Models
             List<VisitorChard> visitorChards = new List<VisitorChard>();
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "select * from crosstab('Select VisitDate,City,CityVisitCount From Visitors Order By 1,2')as ct(VisitDate date, City1 int,City2 int,City3 int,City4 int,City5 int);";
+                command.CommandText = @"
+                                            SELECT tarih, [1], [2], [3], [4], [5]
+                                            FROM
+                                            (
+                                                SELECT
+                                                    CAST([VisitDate] AS Date) AS tarih,
+                                                    [City],
+                                                    CityVisitCount
+                                                FROM Visitors
+                                            ) AS visitTable
+                                            PIVOT
+                                            (
+                                                SUM(CityVisitCount)
+                                                FOR City IN([1], [2], [3], [4], [5])
+                                            ) AS pivotTable
+                                            ORDER BY tarih ASC;";
                 command.CommandType = System.Data.CommandType.Text;
                 _context.Database.OpenConnection();
                 using (var reader = command.ExecuteReader())

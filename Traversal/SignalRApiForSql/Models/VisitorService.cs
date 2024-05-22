@@ -1,0 +1,56 @@
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using SignalRApiForSql.Dal;
+using SignalRApiForSql.Hubs;
+
+namespace SignalRApiForSql.Models
+{
+    public class VisitorService
+    {
+        private readonly Context _context;
+        private readonly IHubContext<VisitorHub> _hubContext;
+
+        public VisitorService(IHubContext<VisitorHub> hubContext, Context context)
+        {
+            _hubContext = hubContext;
+            _context = context;
+        }
+        public IQueryable<Visitor> GetList()
+        {
+            return _context.Visitors.AsQueryable();
+        }
+
+        public async Task SaveVisitor(Visitor visitor)
+        {
+            await _context.Visitors.AddAsync(visitor);
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.SendAsync("CallVisitorList", "aa");
+        }
+
+        public List<VisitorChard> GetVisitorChardList()
+        {
+            List<VisitorChard> visitorChards = new List<VisitorChard>();
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "select * from crosstab('Select VisitDate,City,CityVisitCount From Visitors Order By 1,2')as ct(VisitDate date, City1 int,City2 int,City3 int,City4 int,City5 int);";
+                command.CommandType = System.Data.CommandType.Text;
+                _context.Database.OpenConnection();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        VisitorChard visitorChard = new VisitorChard();
+                        visitorChard.VisitDate = reader.GetDateTime(0).ToShortDateString();
+                        foreach (var item in Enumerable.Range(1, 5).ToList())
+                        {
+                            visitorChard.Counts.Add(reader.GetInt32(item));
+                        }
+                        visitorChards.Add(visitorChard);
+                    }
+                }
+                _context.Database.CloseConnection();
+                return visitorChards;
+            }
+        }
+    }
+}

@@ -82,6 +82,11 @@ builder.Services.AddMvc();
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddFluentValidation();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login/SignIn/";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

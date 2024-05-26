@@ -1,4 +1,8 @@
 ﻿@model List<Destination>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
 <div class="col-12 mt-4">
     <div class="card mb-4">
         <div class="card-header pb-0 p-3">
@@ -17,7 +21,7 @@
                                 </a>
                             </div>
                             <div class="card-body px-1 pb-0">
-                                <p class="text-gradient text-dark mb-2 text-sm">@item.DayNighy - @item.Price ₺</p>
+                                <p class="text-gradient text-dark mb-2 text-sm"><b>@item.DayNighy - @item.Price ₺</b></p>
                                 <a href="javascript:;">
                                     <h5>
                                         @item.City
@@ -48,3 +52,4 @@
         </div>
     </div>
 </div>
+

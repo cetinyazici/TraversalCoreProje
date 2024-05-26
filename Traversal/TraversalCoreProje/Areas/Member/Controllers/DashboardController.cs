@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TraversalCoreProje.Areas.Member.Controllers
 {
     [Area("Member")]
-    [Route("Member/[controller]/[action]")]
+    //[Route("Member/[controller]/[action]")]
     public class DashboardController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

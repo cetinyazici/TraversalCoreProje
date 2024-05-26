@@ -19,6 +19,7 @@ using BusinessLayer.ValidationRules;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,10 +78,14 @@ builder.Services.AddMvc(config =>
     .Build();
     config.Filters.Add(new AuthorizeFilter(policy));
 });
-builder.Services.AddMvc();
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddFluentValidation();
+
+builder.Services.AddLocalization(opt =>
+                                opt.ResourcesPath = "Resources"
+);
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -105,6 +110,14 @@ app.UseAuthentication(); // Kimlik doðrulamayý etkinleþtir
 app.UseRouting();
 
 app.UseAuthorization();
+
+var suppertedCulture = new[] { "en", "fr", "es", "gr", "tr", "de" };
+var localizationOptions = new RequestLocalizationOptions()
+                            .SetDefaultCulture(suppertedCulture[4])
+                            .AddSupportedCultures(suppertedCulture)
+                            .AddSupportedUICultures(suppertedCulture);
+
+app.UseRequestLocalization(localizationOptions);
 
 app.UseEndpoints(endpoints =>
 {

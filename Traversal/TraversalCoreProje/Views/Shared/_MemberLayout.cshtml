@@ -27,7 +27,8 @@
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-wrapper-before"></div>
-            @await Component.InvokeAsync("_MemberLayoutHeaderContent")
+                @await Component.InvokeAsync("_MemberLayoutHeaderContent")
+            
             <div class="content-body">
                 @RenderBody()
             </div>

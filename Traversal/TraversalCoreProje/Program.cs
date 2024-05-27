@@ -69,7 +69,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     options.Password.RequireUppercase = true;
 })
 .AddEntityFrameworkStores<Context>()
-.AddErrorDescriber<CustomIdentityValidator>();
+.AddErrorDescriber<CustomIdentityValidator>()
+.AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
 builder.Services.AddMvc(config =>
 {
